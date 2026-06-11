@@ -17,21 +17,21 @@ public class AboutStrings : Koan
 	public void DoubleQuotedStringsAreStrings()
 	{
 		var str = "Hello, World";
-		Assert.Equal(typeof(FillMeIn), str.GetType());
+		Assert.Equal(typeof(string), str.GetType());
 	}
 
 	[Step(2)]
 	public void SingleQuotedStringsAreNotStrings()
 	{
 		var str = 'H';
-		Assert.Equal(typeof(FillMeIn), str.GetType());
+		Assert.Equal(typeof(char), str.GetType());
 	}
 
 	[Step(3)]
 	public void CreateAStringWhichContainsDoubleQuotes()
 	{
 		var str = "Hello, \"World\"";
-		Assert.Equal(FILL_ME_IN, str.Length);
+		Assert.Equal(6+2+5+1, str.Length);
 	}
 
 	[Step(4)]
@@ -40,7 +40,8 @@ public class AboutStrings : Koan
 		//The @ symbol creates a 'verbatim string literal'. 
 		//Here's one thing you can do with it:
 		var str = @"Hello, ""World""";
-		Assert.Equal(FILL_ME_IN, str.Length);
+		var st2 = @"Hello, ""digga""";
+		Assert.Equal(st2.Length, str.Length);
 	}
 
 	[Step(5)]
@@ -48,7 +49,7 @@ public class AboutStrings : Koan
 	{
 		var strA = @"Verbatim Strings can handle both ' and "" characters (when escaped)";
 		var strB = "Verbatim Strings can handle both ' and \" characters (when escaped)";
-		Assert.Equal(FILL_ME_IN, strA.Equals(strB));
+		Assert.Equal(true, strA.Equals(strB));
 	}
 
 	[Step(6)]
@@ -64,8 +65,8 @@ broken line";
 
 		// Make sure to use a literal string.
 		// Escaped characters in verbatim strings are covered later.
-		var literalString = FILL_ME_IN;
-		Assert.Equal(FILL_ME_IN, verbatimString.Length);
+		var literalString = "I\r\nam a\r\nbroken line";
+		Assert.Equal(literalString.Length, verbatimString.Length);
 
 		// For verbatim strings, the newline character used will depend on
 		// whether the source file uses a \r\n or a \n ending and they have
@@ -84,15 +85,15 @@ broken line";
 		//the hardcoded escape sequence. A much better way
 		//(We'll handle concatenation and better ways of that in a bit)
 		var literalString = "I" + System.Environment.NewLine + "am a" + System.Environment.NewLine + "broken line";
-		var verbatimString = FILL_ME_IN;
+		var verbatimString = $"I{System.Environment.NewLine}am a{System.Environment.NewLine}broken line";
 		Assert.Equal(literalString, verbatimString);
 	}
 
-	[Step(8)]
+    [Step(8)]
 	public void PlusWillConcatenateTwoStrings()
 	{
 		var str = "Hello, " + "World";
-		Assert.Equal(FILL_ME_IN, str);
+		Assert.Equal("Hello, World", str);
 	}
 
 	[Step(9)]
@@ -101,8 +102,8 @@ broken line";
 		var strA = "Hello, ";
 		var strB = "World";
 		var fullString = strA + strB;
-		Assert.Equal(FILL_ME_IN, strA);
-		Assert.Equal(FILL_ME_IN, strB);
+		Assert.Equal("Hello, ", strA);
+		Assert.Equal("World", strB);
 	}
 
 	[Step(10)]
@@ -111,8 +112,8 @@ broken line";
 		var strA = "Hello, ";
 		var strB = "World";
 		strA += strB;
-		Assert.Equal(FILL_ME_IN, strA);
-		Assert.Equal(FILL_ME_IN, strB);
+		Assert.Equal("Hello, World", strA);
+		Assert.Equal("World", strB);
 	}
 
 	[Step(11)]
@@ -127,8 +128,8 @@ broken line";
 		var strB = "World";
 		strA += strB;
 		
-		Assert.Equal(FILL_ME_IN, originalString);
-		Assert.False(Object.ReferenceEquals(FILL_ME_IN, originalString));
+		Assert.Equal("Hello, ", originalString);
+		Assert.False(Object.ReferenceEquals("Hello, World", originalString));
 		//What just happened? Well, the string concatenation actually
 		//takes strA and strB and creates a *new* string in memory
 		//that has the new value. It does *not* modify the original
@@ -154,7 +155,7 @@ broken line";
 		strBuilder.Append("lazy ");
 		strBuilder.Append("dog.");
 		var str = strBuilder.ToString();
-		Assert.Equal(FILL_ME_IN, str);
+		Assert.Equal("The quick brown fox jumped over the lazy dog.", str);
 
 		//When doing lots and lots of concatenation in a loop, StringBuilder will be more efficient than concatenation using the +-operator.
 		//However, even in the above example simple concatenation would actually be more efficient.
@@ -165,7 +166,7 @@ broken line";
 	{
 		var world = "World";
 		var str = String.Format("Hello, {0}", world);
-		Assert.Equal(FILL_ME_IN, str);
+		Assert.Equal("Hello, World", str);
 		// Note that string concatenation and interpolation is more efficient than string.Format
 	}
 
@@ -173,7 +174,7 @@ broken line";
 	public void AnyExpressionCanBeUsedInFormatString()
 	{
 		var str = String.Format("The square root of 9 is {0}", Math.Sqrt(9));
-		Assert.Equal(FILL_ME_IN, str);
+		Assert.Equal("The square root of 9 is 3", str);
 	}
 
 	[Step(15)]
@@ -181,21 +182,21 @@ broken line";
 	{
 		//You can modify the value inserted into the result
 		var str = string.Format("{0,3:}", "x");
-		Assert.Equal(FILL_ME_IN, str);
+		Assert.Equal("  x", str);
 	}
 
 	[Step(16)]
 	public void StringsCanBePaddedToTheRight()
 	{
 		var str = string.Format("{0,-3:}", "x");
-		Assert.Equal(FILL_ME_IN, str);
+		Assert.Equal("x  ", str);
 	}
 
 	[Step(17)]
 	public void SeparatorsCanBeAdded()
 	{
 		var str = string.Format("{0:n}", 123456);
-		Assert.Equal(FILL_ME_IN, str);
+		Assert.Equal("123 456,00", str);
 	}
 
 	[Step(18)]
